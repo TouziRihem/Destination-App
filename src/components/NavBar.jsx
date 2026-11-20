@@ -1,61 +1,48 @@
 
-import logo from "/assets/logo.png";
-
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-
-import { MdAdd } from "react-icons/md";
-
-function NavBar({
-  searchTerm,
-  onSearchChange,
-  onShowModal
-}) {
+import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import logo from '/assets/logo.png'
+function NavBar({ handleShowModal }) {
   return (
-    <Navbar bg="dark" data-bs-theme="dark" expand="lg">
-      <Container fluid>
-
-        <img src={logo} alt="Logo" width="50" />
-
-        <Navbar.Brand className="ms-2 fw-bold">
+    <Navbar bg="dark" variant="dark" expand="lg">
+      <Container>
+        <img
+          src={logo}
+          alt="Destination App Logo"
+          style={{ width: "50px", marginRight: "10px" }}
+        />
+        <Navbar.Brand as={Link} to="/">
           Destination App
         </Navbar.Brand>
 
-        <Navbar.Toggle aria-controls="navbarScroll" />
+        <Navbar.Toggle aria-controls="main-navbar" />
 
-        <Navbar.Collapse id="navbarScroll">
+        <Navbar.Collapse id="main-navbar">
+          <Nav className="me-auto">
+            <Nav.Link as={Link} to="/">
+              Home
+            </Nav.Link>
 
-          <Nav className="me-auto ms-4">
-            <Nav.Link href="#about">About</Nav.Link>
-            <Nav.Link href="#contact">Contact</Nav.Link>
+            <Nav.Link as={Link} to="/destinations">
+              Destinations
+            </Nav.Link>
+
+            <Nav.Link as={Link} to="/about">
+              About
+            </Nav.Link>
+
+            <Nav.Link as={Link} to="/contact">
+              Contact
+            </Nav.Link>
           </Nav>
 
-          <div className="d-flex gap-2">
-
-            <Button
-              variant="outline-light"
-              onClick={onShowModal}
-            >
-              <MdAdd size={22} />
-              Add Destination
-            </Button>
-
-            <Form>
-              <Form.Control
-                type="search"
-                placeholder="Search destination..."
-                value={searchTerm}
-                onChange={(e) => onSearchChange(e.target.value)}
-              />
-            </Form>
-
-          </div>
-
+          <Button
+            variant="success"
+            onClick={handleShowModal}
+          >
+            + Add Destination
+          </Button>
         </Navbar.Collapse>
-
       </Container>
     </Navbar>
   );

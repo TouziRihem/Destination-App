@@ -1,8 +1,11 @@
 
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+
 import { FaStar } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
+
+import { Link } from "react-router-dom";
 
 function DestinationCard({ destination }) {
   return (
@@ -33,18 +36,23 @@ function DestinationCard({ destination }) {
           </span>
 
           <span className="rating">
-            <FaStar />
-            {" "}{destination.rating}
+            <FaStar /> {destination.rating}
           </span>
 
         </div>
 
-        <Button variant="primary" className="mt-auto">
+        <Button
+          as={Link}
+          to={`/destinations/${destination.id}`}
+          variant="primary"
+          className="mt-auto"
+        >
           <MdLocationOn className="me-1" />
-          Explore
+          View Details
         </Button>
 
       </Card.Body>
+
     </Card>
   );
 }

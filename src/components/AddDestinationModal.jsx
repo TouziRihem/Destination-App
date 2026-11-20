@@ -1,60 +1,84 @@
 
 import { useState } from "react";
+import { Modal, Button, Form } from "react-bootstrap";
 
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+function AddDestinationModal({
+  show,
+  handleClose,
+  handleAddDestination,
+}) {
+  const [formData, setFormData] = useState({
+    titre: "",
+    country: "",
+    description: "",
+    prix: "",
+    rating: "",
+    flightDuration: "",
+    airline: "",
+    bestSeason: "",
+    image: "",
+  });
 
-function AddDestinationModal({ show, handleClose, handleAddDestination }) {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-  const [titre, setTitre] = useState("");
-  const [description, setDescription] = useState("");
-  const [prix, setPrix] = useState("");
-  const [rating, setRating] = useState("");
-  const [image, setImage] = useState("");
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const newDestination = {
-      id: Date.now(),
-      titre: titre,
-      description: description,
-      prix: Number(prix),
-      rating: Number(rating),
-      image: image
+      ...formData,
+      id: Math.random().toString(36).slice(2, 11),
+      prix: Number(formData.prix),
+      rating: Number(formData.rating),
     };
 
     handleAddDestination(newDestination);
 
-    // Reset form
-    setTitre("");
-    setDescription("");
-    setPrix("");
-    setRating("");
-    setImage("");
+    setFormData({
+      titre: "",
+      country: "",
+      description: "",
+      prix: "",
+      rating: "",
+      flightDuration: "",
+      airline: "",
+      bestSeason: "",
+      image: "",
+    });
 
     handleClose();
   };
 
   return (
     <Modal show={show} onHide={handleClose} centered>
-
       <Modal.Header closeButton>
-        <Modal.Title>Add New Destination</Modal.Title>
+        <Modal.Title>Add a Destination</Modal.Title>
       </Modal.Header>
 
-      <Modal.Body>
-
-        <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
+        <Modal.Body>
+          <Form.Group className="mb-3">
+            <Form.Label>Destination Name</Form.Label>
+            <Form.Control
+              name="titre"
+              value={formData.titre}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Destination Title</Form.Label>
+            <Form.Label>Country</Form.Label>
             <Form.Control
-              type="text"
-              placeholder="Enter destination name"
-              value={titre}
-              onChange={(e) => setTitre(e.target.value)}
+              name="country"
+              value={formData.country}
+              onChange={handleChange}
               required
             />
           </Form.Group>
@@ -64,35 +88,67 @@ function AddDestinationModal({ show, handleClose, handleAddDestination }) {
             <Form.Control
               as="textarea"
               rows={3}
-              placeholder="Enter description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
               required
             />
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Price (DT)</Form.Label>
+            <Form.Label>Price</Form.Label>
             <Form.Control
               type="number"
-              min="1"
-              placeholder="Enter price"
-              value={prix}
-              onChange={(e) => setPrix(e.target.value)}
+              name="prix"
+              value={formData.prix}
+              onChange={handleChange}
+              min="0"
               required
             />
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Rating (0 - 5)</Form.Label>
+            <Form.Label>Rating</Form.Label>
             <Form.Control
               type="number"
+              name="rating"
+              value={formData.rating}
+              onChange={handleChange}
               min="0"
               max="5"
               step="0.1"
-              placeholder="Enter rating"
-              value={rating}
-              onChange={(e) => setRating(e.target.value)}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Flight Duration</Form.Label>
+            <Form.Control
+              name="flightDuration"
+              value={formData.flightDuration}
+              onChange={handleChange}
+              placeholder="e.g. 3h 30min"
+              required
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Airline</Form.Label>
+            <Form.Control
+              name="airline"
+              value={formData.airline}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Best Season</Form.Label>
+            <Form.Control
+              name="bestSeason"
+              value={formData.bestSeason}
+              onChange={handleChange}
+              placeholder="e.g. June - September"
               required
             />
           </Form.Group>
@@ -101,29 +157,25 @@ function AddDestinationModal({ show, handleClose, handleAddDestination }) {
             <Form.Label>Image URL</Form.Label>
             <Form.Control
               type="url"
-              placeholder="Enter image URL"
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
+              name="image"
+              value={formData.image}
+              onChange={handleChange}
+              placeholder="https://..."
               required
             />
           </Form.Group>
+        </Modal.Body>
 
-          <div className="d-flex justify-content-end gap-2">
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancel
+          </Button>
 
-            <Button variant="secondary" onClick={handleClose}>
-              Cancel
-            </Button>
-
-            <Button variant="primary" type="submit">
-              Add Destination
-            </Button>
-
-          </div>
-
-        </Form>
-
-      </Modal.Body>
-
+          <Button variant="primary" type="submit">
+            Add Destination
+          </Button>
+        </Modal.Footer>
+      </Form>
     </Modal>
   );
 }
