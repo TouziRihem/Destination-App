@@ -1,0 +1,86 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+
+.App {
+  min-height: 100vh;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 65px 20px;
+  background-color: #eaf5ff;
+}
+
+.hero h1 {
+  font-size: 42px;
+  font-weight: bold;
+  color: #173b5e;
+}
+
+.hero p {
+  color: #667788;
+  margin: 15px 0 25px;
+}
+
+/* Destination Cards */
+.destination-card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.destination-card:hover {
+  transform: translateY(-5px);
+}
+
+.img {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Card Content */
+.description {
+  color: #777;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.price {
+  font-size: 17px;
+  font-weight: bold;
+  color: #198754;
+}
+
+.rating {
+  color: #f5a623;
+  font-weight: bold;
+}
+
+.rating svg {
+  margin-bottom: 3px;
+}
+
+/* Modal */
+.modal-content {
+  border-radius: 12px;
+}
+
+.modal-header {
+  background-color: #eaf5ff;
+}
